@@ -1,0 +1,190 @@
+// reset css
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+// variable
+$bg-background: #f6f9fe;
+$color-blue-100: #2a73dc;
+$color-blue-200: #1d355e;
+$color-yellow-100: #f9d310;
+$color-text-white: #ffff;
+
+$fs-logo: 24px;
+$fs-title-1: 60px;
+$fs-title-2: 34px;
+$fs-sub-title: 20px;
+$fs-paragraph: 18px;
+
+$box-shadow: 0 2px 4px #c8ccd4;
+
+// mixin
+@mixin styleBg-img($bg-r, $bg-s) {
+  background-repeat: $bg-r;
+  background-size: $bg-s;
+}
+@mixin styleText($fw, $color, $fs: 16px) {
+  font-size: $fs;
+  font-weight: $fw;
+  color: $color;
+}
+@mixin styleButton($color, $bg, $hover: true, $box-shadow: false) {
+  border-radius: 8px;
+  padding: 15px 40px;
+  border: 2px solid $color-blue-100;
+  background-color: $bg;
+  color: $color;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  @if $hover() {
+    &:hover {
+      background-color: $color;
+      color: $bg;
+    }
+  }
+
+  @if $box-shadow() {
+    box-shadow: $box-shadow;
+  }
+}
+// html
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+body {
+  background-color: $bg-background;
+}
+header {
+  padding: 30px 0;
+  box-shadow: $box-shadow;
+  margin-bottom: 5px;
+  .header_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    a {
+      text-decoration: none;
+    }
+    .header_logo {
+      @include styleText(bold, $color-blue-100, $fs-logo);
+    }
+    nav {
+      ul {
+        list-style: none;
+        display: flex;
+        li {
+          margin-right: 20px;
+          a {
+            @include styleText(400, $color-blue-200);
+            transition: all 0.5s;
+            position: relative;
+            &::before {
+              content: "";
+              width: 0;
+              height: 3px;
+              background-color: $color-blue-100;
+              display: block;
+              position: absolute;
+              left: 0;
+              bottom: -10px;
+              transition: all 0.5s;
+            }
+          }
+
+          &.active {
+            a {
+              color: $color-blue-100;
+              &::before {
+                width: 100%;
+              }
+            }
+          }
+
+          &:hover {
+            a {
+              color: $color-blue-100;
+              &::before {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.banner {
+  background-image: url("../image/product-header-bg.jpg");
+  @include styleBg-img(no-repeat, cover);
+  background-position: center bottom;
+  padding-top: 50px 0;
+  height: 80vh;
+
+  .banner_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .banner_text {
+      width: 50%;
+      p {
+        color: $color-blue-200;
+      }
+      h1 {
+        @include styleText(bold, $color-blue-100, $fs-title-1);
+      }
+      .banner_sub_title {
+        @include styleText(bold, $color-blue-200, $fs-sub-title);
+        margin: 15px 0;
+      }
+      .banner_group_button {
+        margin-top: 10px;
+        svg {
+          margin-right: 5px;
+        }
+        .button_more_info {
+          @include styleButton($color-blue-100, white);
+        }
+
+        .button_shop {
+          @include styleButton(white, $color-blue-100, true, $box-shadow);
+        }
+      }
+    }
+    .banner_img {
+      width: 50%;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+.product {
+  padding: 30px 0;
+  .product_title {
+    text-align: center;
+    @include styleText(bold, $color-blue-200, $fs-title-2);
+  }
+  .product_content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    .product_item {
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      img {
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: $box-shadow;
+      }
+    }
+  }
+}
