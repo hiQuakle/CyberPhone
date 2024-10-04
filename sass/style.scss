@@ -1,60 +1,16 @@
-// reset css
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
-}
-
-// variable
-$bg-background: #f6f9fe;
-$color-blue-100: #2a73dc;
-$color-blue-200: #1d355e;
-$color-yellow-100: #f9d310;
-$color-text-white: #ffff;
-
-$fs-logo: 24px;
-$fs-title-1: 60px;
-$fs-title-2: 34px;
-$fs-sub-title: 20px;
-$fs-paragraph: 18px;
-
-$box-shadow: 0 2px 4px #c8ccd4;
-
-// mixin
-@mixin styleBg-img($bg-r, $bg-s) {
-  background-repeat: $bg-r;
-  background-size: $bg-s;
-}
-@mixin styleText($fw, $color, $fs: 16px) {
-  font-size: $fs;
-  font-weight: $fw;
-  color: $color;
-}
-@mixin styleButton($color, $bg, $hover: true, $box-shadow: false) {
-  border-radius: 8px;
-  padding: 15px 40px;
-  border: 2px solid $color-blue-100;
-  background-color: $bg;
-  color: $color;
-  transition: all 0.3s;
-  cursor: pointer;
-
-  @if $hover() {
-    &:hover {
-      background-color: $color;
-      color: $bg;
-    }
-  }
-
-  @if $box-shadow() {
-    box-shadow: $box-shadow;
-  }
-}
+@import "./base/reset";
+@import "./helper/variable";
+@import "./helper/mixin";
+@import "./base/base";
+@import "./components/product_item";
+@import "./layout/product";
 // html
 .container {
   max-width: 1140px;
   margin: 0 auto;
+}
+.button_shop {
+  @include styleButton(white, $color-blue-100, true, $box-shadow);
 }
 body {
   background-color: $bg-background;
@@ -74,6 +30,9 @@ header {
       @include styleText(bold, $color-blue-100, $fs-logo);
     }
     nav {
+      @media screen and (max-width: 576px) {
+        display: none;
+      }
       ul {
         list-style: none;
         display: flex;
@@ -145,15 +104,9 @@ header {
       }
       .banner_group_button {
         margin-top: 10px;
-        svg {
-          margin-right: 5px;
-        }
+
         .button_more_info {
           @include styleButton($color-blue-100, white);
-        }
-
-        .button_shop {
-          @include styleButton(white, $color-blue-100, true, $box-shadow);
         }
       }
     }
@@ -165,26 +118,22 @@ header {
     }
   }
 }
-.product {
-  padding: 30px 0;
-  .product_title {
-    text-align: center;
-    @include styleText(bold, $color-blue-200, $fs-title-2);
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
   }
-  .product_content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    .product_item {
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-      padding: 20px;
-      background-color: white;
-      border-radius: 8px;
-      img {
-        width: 100%;
-        border-radius: 8px;
-        box-shadow: $box-shadow;
-      }
-    }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// ultilities class
+// fs
+@for $i from 1 through 100 {
+  .fs-#{$i} {
+    font-size: ($i) px;
   }
 }

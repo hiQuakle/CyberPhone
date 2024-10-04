@@ -1,0 +1,41 @@
+.product_item {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  animation-name: zoomIn;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  @for $i from 2 through 6 {
+    &:nth-child(#{$i}) {
+      animation-delay: ($i - 1) * 2s;
+    }
+  }
+  img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: $box-shadow;
+  }
+  h3 {
+    @include styleText(bold, $color-blue-100, $fs-title-3);
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  .sub_title {
+    @include styleText(bold, $color-blue-200);
+  }
+  .product_group_action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .product_rate {
+      svg {
+        path {
+          fill: $color-yellow-100;
+        }
+      }
+    }
+  }
+}
